@@ -2,6 +2,7 @@
 set -e
 
 echo "Building BatteryGuard AI for web..."
+cd "/Users/emanuelcham/Documents/New OpenCode Project/batteryguard"
 rm -rf dist
 npx expo export --platform web
 
@@ -9,7 +10,7 @@ npx expo export --platform web
 BUNDLE_FILE=$(grep -o '_expo/static/js/web/[^"]*' dist/index.html)
 
 echo "Creating mobile-optimized index.html..."
-cat > dist/index.html << 'HTMLEOF'
+cat > dist/index.html << HTMLEOF
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -67,10 +68,7 @@ cat > dist/index.html << 'HTMLEOF'
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
-HTMLEOF
-
-echo "<script src=\"/batteryguard/$BUNDLE_FILE\" defer></script>" >> dist/index.html
-cat >> dist/index.html << 'HTMLEOF'
+    <script src="/batteryguard/${BUNDLE_FILE}" defer></script>
   </body>
 </html>
 HTMLEOF
@@ -79,6 +77,18 @@ cp web/manifest.json dist/manifest.json
 touch dist/.nojekyll
 
 echo "Deploying to GitHub Pages..."
-npx gh-pages -d dist
+DEPLOY_DIR="/tmp/gh-pages-deploy"
+rm -rf "$DEPLOY_DIR"
+cp -r dist "$DEPLOY_DIR"
+cd "$DEPLOY_DIR"
+git init
+git checkout -b gh-pages
+git add -A
+git commit -m "Deploy $(date)"
+git remote add origin https://github.com/bkessch-hue/batteryguard.git
+git push origin gh-pages --force
+
+cd "/Users/emanuelcham/Documents/New OpenCode Project/batteryguard"
+rm -rf "$DEPLOY_DIR"
 
 echo "Done! Visit https://bkessch-hue.github.io/batteryguard/"
