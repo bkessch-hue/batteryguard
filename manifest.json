@@ -1,0 +1,24 @@
+{
+  "name": "BatteryGuard AI",
+  "short_name": "BatteryGuard",
+  "description": "Smart car battery diagnostics via OBD-II Bluetooth",
+  "start_url": "/batteryguard/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0A0E21",
+  "theme_color": "#00D4FF",
+  "icons": [
+    {
+      "src": "/batteryguard/assets/icon.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/batteryguard/assets/icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
