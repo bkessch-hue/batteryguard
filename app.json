@@ -43,6 +43,7 @@
       "display": "standalone",
       "orientation": "portrait",
       "scope": "/",
+      "baseUrl": "/batteryguard/",
       "icons": [
         {
           "src": "./assets/icon.png",
